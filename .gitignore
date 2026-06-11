@@ -1,5 +1,10 @@
 node_modules/
-dist/
 *.log
 .DS_Store
 *.tsbuildinfo
+
+# NOTE: dist/ is intentionally COMMITTED (not ignored). This package is consumed
+# as a git/SHA dependency; committing the build makes a SHA pin importable with
+# no build step (pnpm blocks git-dep `prepare` scripts behind an allowlist).
+# Discipline: run `pnpm build` and commit dist/ in the SAME commit as any src/
+# change. The contract-smoke test guards behavior; keep dist in lockstep.

@@ -23,10 +23,15 @@ import { HealthResponse, ErrorEnvelope, WsClientFrame } from '@crezam/website-co
 const parsed = HealthResponse.parse(await res.json());
 ```
 
-The package builds on install (a `prepare` script runs `tsc` → `dist/`), so a
-git/SHA pin is directly importable. **zod is a peerDependency (`^3.23.8`)** —
-the consumer provides zod (both FE and BE are on zod 3). Keep the consumer's zod
-major in lockstep with this range.
+The built `dist/` is **committed to the repo** (no build runs on install), so a
+git/SHA pin is importable immediately — pnpm blocks git-dep `prepare` scripts
+behind an `allowBuilds` allowlist, so committing the build avoids forcing every
+consumer to approve build-script execution. **zod is a peerDependency
+(`^3.23.8`)** — the consumer provides zod (both FE and BE are on zod 3). Keep the
+consumer's zod major in lockstep with this range.
+
+> Maintainer discipline: run `pnpm build` and commit `dist/` in the SAME commit
+> as any `src/` change. `pnpm test` guards schema behavior.
 
 ## What's in it (v0.1.0)
 
@@ -50,8 +55,8 @@ Each export is a Zod schema plus a same-named inferred TypeScript type.
 
 1. **Propose in `ROUND_1_COMMS.md`** — describe the shape change. The OTHER
    window must **ack** before either side builds against it.
-2. **Change the schema here**, bump `version`, `pnpm test`, commit, and **tag**
-   (`vX.Y.Z`).
+2. **Change the schema here**, bump `version`, `pnpm build` (commit `dist/` in
+   the same commit), `pnpm test`, commit, and **tag** (`vX.Y.Z`).
 3. Record the new **SHA + tag** in `ROUND_1_LOGS.md` (new row) with the rationale
    in `ROUND_1_COMMS.md`.
 4. **Both** website-backend and website-frontend update their pin to the **same
