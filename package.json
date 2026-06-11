@@ -1,0 +1,41 @@
+{
+  "name": "@crezam/website-contracts",
+  "version": "0.1.0",
+  "description": "Shared Zod contracts (request/response shapes, enums, WS frame types) crossing the Crezam website FE↔BE boundary.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shruti-zam/website-contracts.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "prepare": "tsc -p tsconfig.json",
+    "test": "node --import tsx scripts/contract-smoke.ts"
+  },
+  "peerDependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "zod": "^3.23.8"
+  }
+}
