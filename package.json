@@ -1,6 +1,6 @@
 {
   "name": "@crezam/website-contracts",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Shared Zod contracts (request/response shapes, enums, WS frame types) crossing the Crezam website FE↔BE boundary.",
   "type": "module",
   "license": "UNLICENSED",
